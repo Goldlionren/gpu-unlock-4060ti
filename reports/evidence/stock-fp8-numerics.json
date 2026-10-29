@@ -1,0 +1,122 @@
+[
+  {
+    "n": 256,
+    "distribution": "gaussian",
+    "fast_accum": false,
+    "max_abs": 0.000370025634765625,
+    "relative_l2": 0.00010333217400382474,
+    "gpu_vs_cpu_fp64_max": 0.0,
+    "split_k32_error": {
+      "max_abs": 8.392333984375e-05,
+      "relative_l2": 3.5553126337021604e-05
+    },
+    "scale_consistency_max": 0.0
+  },
+  {
+    "n": 256,
+    "distribution": "gaussian",
+    "fast_accum": true,
+    "max_abs": 0.00063323974609375,
+    "relative_l2": 0.00017695832556013032,
+    "gpu_vs_cpu_fp64_max": 0.0
+  },
+  {
+    "n": 256,
+    "distribution": "dyadic",
+    "fast_accum": false,
+    "max_abs": 0.0,
+    "relative_l2": 0.0,
+    "gpu_vs_cpu_fp64_max": 0.0,
+    "split_k32_error": {
+      "max_abs": 0.0,
+      "relative_l2": 0.0
+    },
+    "scale_consistency_max": 0.0
+  },
+  {
+    "n": 256,
+    "distribution": "dyadic",
+    "fast_accum": true,
+    "max_abs": 0.0,
+    "relative_l2": 0.0,
+    "gpu_vs_cpu_fp64_max": 0.0
+  },
+  {
+    "n": 256,
+    "distribution": "no_subnormals",
+    "fast_accum": false,
+    "max_abs": 0.000255584716796875,
+    "relative_l2": 7.468195453226036e-05,
+    "gpu_vs_cpu_fp64_max": 0.0,
+    "split_k32_error": {
+      "max_abs": 5.7220458984375e-05,
+      "relative_l2": 2.433102012962091e-05
+    },
+    "scale_consistency_max": 0.0
+  },
+  {
+    "n": 256,
+    "distribution": "no_subnormals",
+    "fast_accum": true,
+    "max_abs": 0.0005645751953125,
+    "relative_l2": 0.0001310909003201068,
+    "gpu_vs_cpu_fp64_max": 0.0
+  },
+  {
+    "n": 2048,
+    "distribution": "gaussian",
+    "fast_accum": false,
+    "max_abs": 0.000598907470703125,
+    "relative_l2": 0.00010248417749002633,
+    "split_k32_error": {
+      "max_abs": 0.0001678466796875,
+      "relative_l2": 3.535719197162423e-05
+    },
+    "scale_consistency_max": 0.0
+  },
+  {
+    "n": 2048,
+    "distribution": "gaussian",
+    "fast_accum": true,
+    "max_abs": 0.0108642578125,
+    "relative_l2": 0.0008005112138257067
+  },
+  {
+    "n": 2048,
+    "distribution": "dyadic",
+    "fast_accum": false,
+    "max_abs": 0.0,
+    "relative_l2": 0.0,
+    "split_k32_error": {
+      "max_abs": 0.0,
+      "relative_l2": 0.0
+    },
+    "scale_consistency_max": 0.0
+  },
+  {
+    "n": 2048,
+    "distribution": "dyadic",
+    "fast_accum": true,
+    "max_abs": 0.0,
+    "relative_l2": 0.0
+  },
+  {
+    "n": 2048,
+    "distribution": "no_subnormals",
+    "fast_accum": false,
+    "max_abs": 0.000453948974609375,
+    "relative_l2": 7.470267248052426e-05,
+    "split_k32_error": {
+      "max_abs": 0.000125885009765625,
+      "relative_l2": 2.4491149241296638e-05
+    },
+    "scale_consistency_max": 0.0
+  },
+  {
+    "n": 2048,
+    "distribution": "no_subnormals",
+    "fast_accum": true,
+    "max_abs": 0.009433746337890625,
+    "relative_l2": 0.0006593160489717985
+  }
+]

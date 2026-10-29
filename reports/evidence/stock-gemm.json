@@ -1,0 +1,511 @@
+{
+  "torch": "2.13.0+cu130",
+  "cuda": "13.0",
+  "source_sha256": "3d758f693c95ddd57e1a714e21eb0dbdd34ca18c40986aa2b7d40b39e55ef196",
+  "seed": 20261029,
+  "precision": {
+    "tf32": false,
+    "fp16_reduced_reduction": false,
+    "bf16_reduced_reduction": false,
+    "fp8_fast_accum": false
+  },
+  "device": "NVIDIA GeForce RTX 4060 Ti",
+  "label": "stock",
+  "results": [
+    {
+      "n": 2048,
+      "mode": "fp32",
+      "ms": [
+        1.491968035697937,
+        1.46943998336792,
+        1.4725120067596436,
+        1.4766080379486084,
+        1.4725120067596436,
+        1.474560022354126,
+        1.4755840301513672
+      ],
+      "median_tflops": 11.650844267819254,
+      "wall_seconds": 0.010555828000178735,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 1.4352967998565447e-06,
+      "rmse": 2.1957808604294905e-07,
+      "relative_l2": 3.1197855494329333e-07,
+      "finite": true,
+      "throughput_unit": "TFLOP/s",
+      "numeric_pass": true,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "8.81 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "48",
+        "clocks.current.sm [MHz]": "2610 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "21 %"
+      }
+    },
+    {
+      "n": 2048,
+      "mode": "fp16",
+      "ms": [
+        0.4270080029964447,
+        0.4188160002231598,
+        0.41676801443099976,
+        0.4188160002231598,
+        0.4177919924259186,
+        0.41574400663375854,
+        0.41676801443099976
+      ],
+      "median_tflops": 41.120628196449395,
+      "wall_seconds": 0.0031376469996757805,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 0.0009779662127584743,
+      "rmse": 0.00014607057688446838,
+      "relative_l2": 0.00020666196286166802,
+      "finite": true,
+      "throughput_unit": "TFLOP/s",
+      "numeric_pass": true,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "16.57 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "49",
+        "clocks.current.sm [MHz]": "2610 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "9 %"
+      }
+    },
+    {
+      "n": 2048,
+      "mode": "bf16",
+      "ms": [
+        0.4280320107936859,
+        0.4188160002231598,
+        0.41574400663375854,
+        0.41574400663375854,
+        0.4177919924259186,
+        0.41574400663375854,
+        0.41676801443099976
+      ],
+      "median_tflops": 41.22165950632064,
+      "wall_seconds": 0.003142526000374346,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 0.007795943412929773,
+      "rmse": 0.001158047643861642,
+      "relative_l2": 0.0016414519383985374,
+      "finite": true,
+      "throughput_unit": "TFLOP/s",
+      "numeric_pass": true,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "18.29 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "49",
+        "clocks.current.sm [MHz]": "2610 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "9 %"
+      }
+    },
+    {
+      "n": 2048,
+      "mode": "fp8_e4m3",
+      "ms": [
+        0.23347200453281403,
+        0.2252800017595291,
+        0.22323200106620789,
+        0.22220799326896667,
+        0.22732800245285034,
+        0.22323200106620789,
+        0.22220799326896667
+      ],
+      "median_tflops": 76.95970605444091,
+      "wall_seconds": 0.0017561320000822889,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 0.000469207763671875,
+      "rmse": 7.248775965161292e-05,
+      "relative_l2": 0.00010261259841668591,
+      "finite": true,
+      "throughput_unit": "TFLOP/s",
+      "numeric_pass": false,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "19.68 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "49",
+        "clocks.current.sm [MHz]": "2610 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "10 %"
+      }
+    },
+    {
+      "n": 2048,
+      "mode": "fp8_e5m2",
+      "error": "Multiplication of two Float8_e5m2 matrices is not supported"
+    },
+    {
+      "n": 2048,
+      "mode": "int8",
+      "ms": [
+        0.13312000036239624,
+        0.12902399897575378,
+        0.12800000607967377,
+        0.12902399897575378,
+        0.12800000607967377,
+        0.12800000607967377,
+        0.12902399897575378
+      ],
+      "median_tflops": 133.152508993528,
+      "wall_seconds": 0.0010909440006798832,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 0.0,
+      "rmse": 0.0,
+      "relative_l2": 0.0,
+      "finite": true,
+      "throughput_unit": "TOP/s",
+      "numeric_pass": true,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "19.68 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "49",
+        "clocks.current.sm [MHz]": "2610 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "10 %"
+      }
+    },
+    {
+      "n": 4096,
+      "mode": "fp32",
+      "ms": [
+        10.566656112670898,
+        10.662912368774414,
+        10.556415557861328,
+        10.570752143859863,
+        10.84006404876709,
+        11.494400024414062,
+        11.492351531982422
+      ],
+      "median_tflops": 12.889438524739289,
+      "wall_seconds": 0.07659931799935293,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 1.1618883861252982e-05,
+      "rmse": 1.1445770333560124e-06,
+      "relative_l2": 1.1486078536369835e-06,
+      "finite": true,
+      "throughput_unit": "TFLOP/s",
+      "numeric_pass": true,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "33.02 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "65",
+        "clocks.current.sm [MHz]": "2205 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "99 %"
+      }
+    },
+    {
+      "n": 4096,
+      "mode": "fp16",
+      "ms": [
+        3.1631360054016113,
+        3.16211199760437,
+        3.16211199760437,
+        3.16211199760437,
+        3.16211199760437,
+        3.16211199760437,
+        3.161087989807129
+      ],
+      "median_tflops": 43.46429018836915,
+      "wall_seconds": 0.02230059499925119,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 0.0019690406479639933,
+      "rmse": 0.00020707376644841938,
+      "relative_l2": 0.00020699365092585598,
+      "finite": true,
+      "throughput_unit": "TFLOP/s",
+      "numeric_pass": true,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "36.01 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "55",
+        "clocks.current.sm [MHz]": "2595 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "99 %"
+      }
+    },
+    {
+      "n": 4096,
+      "mode": "bf16",
+      "ms": [
+        3.1150081157684326,
+        3.107840061187744,
+        3.107840061187744,
+        3.1098880767822266,
+        3.117055892944336,
+        3.1150081157684326,
+        3.1088640689849854
+      ],
+      "median_tflops": 44.19418000862811,
+      "wall_seconds": 0.021983626000292134,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 0.011505398843837611,
+      "rmse": 0.0016559521893683743,
+      "relative_l2": 0.0016597076065329465,
+      "finite": true,
+      "throughput_unit": "TFLOP/s",
+      "numeric_pass": true,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "36.01 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "59",
+        "clocks.current.sm [MHz]": "2640 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "47 %"
+      }
+    },
+    {
+      "n": 4096,
+      "mode": "fp8_e4m3",
+      "ms": [
+        1.5708160400390625,
+        1.5646719932556152,
+        1.563647985458374,
+        1.563647985458374,
+        1.5615999698638916,
+        1.5626239776611328,
+        1.5615999698638916
+      ],
+      "median_tflops": 87.8963518324814,
+      "wall_seconds": 0.011119225000584265,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 0.0007476806640625,
+      "rmse": 0.00010255390953418838,
+      "relative_l2": 0.00010300311933549249,
+      "finite": true,
+      "throughput_unit": "TFLOP/s",
+      "numeric_pass": false,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "39.15 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "59",
+        "clocks.current.sm [MHz]": "2640 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "67 %"
+      }
+    },
+    {
+      "n": 4096,
+      "mode": "fp8_e5m2",
+      "error": "Multiplication of two Float8_e5m2 matrices is not supported"
+    },
+    {
+      "n": 4096,
+      "mode": "int8",
+      "ms": [
+        0.8806399703025818,
+        0.8785920143127441,
+        0.8734719753265381,
+        0.8744959831237793,
+        0.8704000115394592,
+        0.8704000115394592,
+        0.8724480271339417
+      ],
+      "median_tflops": 157.34786845407368,
+      "wall_seconds": 0.006283667000388959,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 0.0,
+      "rmse": 0.0,
+      "relative_l2": 0.0,
+      "finite": true,
+      "throughput_unit": "TOP/s",
+      "numeric_pass": true,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "39.15 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "54",
+        "clocks.current.sm [MHz]": "2655 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "67 %"
+      }
+    },
+    {
+      "n": 8192,
+      "mode": "fp32",
+      "ms": [
+        94.20902252197266,
+        94.1998062133789,
+        94.18649291992188,
+        94.18342590332031,
+        94.18854522705078,
+        94.39539337158203,
+        97.10387420654297
+      ],
+      "median_tflops": 11.672121971094244,
+      "wall_seconds": 0.6626853999996456,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 2.3734798975993954e-05,
+      "rmse": 2.2971499209224682e-06,
+      "relative_l2": 1.6238159260365147e-06,
+      "finite": true,
+      "throughput_unit": "TFLOP/s",
+      "numeric_pass": true,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "154.60 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "67",
+        "clocks.current.sm [MHz]": "2280 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "100 %"
+      }
+    },
+    {
+      "n": 8192,
+      "mode": "fp16",
+      "ms": [
+        24.3189754486084,
+        24.441856384277344,
+        24.438783645629883,
+        24.437759399414062,
+        24.437759399414062,
+        24.442880630493164,
+        24.444927215576172
+      ],
+      "median_tflops": 44.99043993838922,
+      "wall_seconds": 0.171122180000566,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 0.0020365019077530633,
+      "rmse": 0.0002943108231991245,
+      "relative_l2": 0.0002077342937998312,
+      "finite": true,
+      "throughput_unit": "TFLOP/s",
+      "numeric_pass": true,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "158.59 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "67",
+        "clocks.current.sm [MHz]": "2640 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "100 %"
+      }
+    },
+    {
+      "n": 8192,
+      "mode": "bf16",
+      "ms": [
+        24.46950340270996,
+        24.46028709411621,
+        24.46131134033203,
+        24.46028709411621,
+        24.459264755249023,
+        24.46131134033203,
+        24.46233558654785
+      ],
+      "median_tflops": 44.94900590072272,
+      "wall_seconds": 0.171405729000071,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 0.01558450044831261,
+      "rmse": 0.0023447150450103993,
+      "relative_l2": 0.0016595883605968005,
+      "finite": true,
+      "throughput_unit": "TFLOP/s",
+      "numeric_pass": true,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "145.44 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "66",
+        "clocks.current.sm [MHz]": "2640 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "83 %"
+      }
+    },
+    {
+      "n": 8192,
+      "mode": "fp8_e4m3",
+      "ms": [
+        12.408831596374512,
+        12.598272323608398,
+        12.599295616149902,
+        12.602368354797363,
+        12.627967834472656,
+        12.67404842376709,
+        12.65459156036377
+      ],
+      "median_tflops": 87.2464283554644,
+      "wall_seconds": 0.08834663600009662,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 0.000728607177734375,
+      "rmse": 0.00014475773479388844,
+      "relative_l2": 0.00010252766139512151,
+      "finite": true,
+      "throughput_unit": "TFLOP/s",
+      "numeric_pass": false,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "138.05 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "67",
+        "clocks.current.sm [MHz]": "2595 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "88 %"
+      }
+    },
+    {
+      "n": 8192,
+      "mode": "fp8_e5m2",
+      "error": "Multiplication of two Float8_e5m2 matrices is not supported"
+    },
+    {
+      "n": 8192,
+      "mode": "int8",
+      "ms": [
+        6.414336204528809,
+        6.395904064178467,
+        6.415359973907471,
+        6.407167911529541,
+        6.803455829620361,
+        6.899712085723877,
+        6.878208160400391
+      ],
+      "median_tflops": 171.38736286785618,
+      "wall_seconds": 0.046466203000818496,
+      "reference": "FP64 on quantized inputs; 32 evenly spaced rows, all columns",
+      "max_abs": 0.0,
+      "rmse": 0.0,
+      "relative_l2": 0.0,
+      "finite": true,
+      "throughput_unit": "TOP/s",
+      "numeric_pass": true,
+      "telemetry_sample": {
+        "driver_version": "580.178.04",
+        "vbios_version": "95.06.34.00.F3",
+        "power.draw [W]": "129.20 W",
+        "power.limit [W]": "165.00 W",
+        "temperature.gpu": "67",
+        "clocks.current.sm [MHz]": "2430 MHz",
+        "clocks.current.memory [MHz]": "8751 MHz",
+        "utilization.gpu [%]": "99 %"
+      }
+    }
+  ]
+}

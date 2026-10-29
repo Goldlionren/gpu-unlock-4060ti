@@ -1,0 +1,1 @@
+Raw host evidence, test logs and benchmarks are stored here locally and excluded from publication. Review and redact network addresses, host names, UUIDs, paths and process details before publishing. A sandbox diagnostic failure is not evidence of host failure.

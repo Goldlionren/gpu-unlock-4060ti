@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+"""Actual observations and explicit deployment controls; never resets the GPU."""
+import argparse,datetime,json,os,pathlib,subprocess,sys,tempfile,time
+root=pathlib.Path(__file__).resolve().parents[1]
+p=argparse.ArgumentParser();p.add_argument('command',choices=['status','verify','benchmark','logs','enable','disable','rollback','restore']);a=p.parse_args()
+def run(cmd,timeout=15):
+ try:
+  r=subprocess.run(cmd,capture_output=True,text=True,timeout=timeout);return {'returncode':r.returncode,'stdout':r.stdout,'stderr':r.stderr}
+ except (OSError,subprocess.TimeoutExpired) as e:return {'error':str(e)}
+def read(p):
+ try:return pathlib.Path(p).read_text().strip()
+ except OSError:return None
+if a.command in ('enable','disable','rollback','restore'):
+ action='rollback' if a.command=='restore' else a.command
+ sys.exit(subprocess.call(['/usr/bin/python3',str(root/'scripts/admin.py'),action]))
+if a.command=='benchmark':
+ name='benchmark-'+datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'.json'
+ sys.exit(subprocess.call([sys.executable,str(root/'scripts/benchmark.py'),'--output',str(root/'logs'/name)]))
+if a.command=='logs':
+ print('\n'.join(str(x) for x in sorted((root/'logs').glob('*'))));print(run(['journalctl','-b','-u','gpu-unlock-verify.service','--no-pager'])['stdout']);sys.exit()
+s={'schema':2,'timestamp':datetime.datetime.now(datetime.timezone.utc).isoformat(),'boot_id':read('/proc/sys/kernel/random/boot_id'),'unlock':'unknown','enabled':pathlib.Path('/etc/gpu-unlock-sm1/enabled').exists(),'installed':pathlib.Path('/var/lib/gpu-unlock-sm1/manifest.json').exists(),'compute':'not_tested','network_external_reachability':'not_tested'}
+gpu_query=['nvidia-smi','--query-gpu=uuid,pci.bus_id,name,driver_version,vbios_version','--format=csv']
+s['gpu']=run(gpu_query,3)
+if a.command=='verify':
+ # Observe readiness; never initiate driver reload/reset to satisfy verification.
+ deadline=time.monotonic()+30;attempts=1
+ while s['gpu'].get('returncode')!=0 and time.monotonic()<deadline:
+  time.sleep(.25);s['gpu']=run(gpu_query,3);attempts+=1
+ s['gpu_readiness_attempts']=attempts
+s['ssh']=run(['systemctl','is-active','ssh.service','ssh.socket']);s['network']=run(['ip','route']);s['kernel_unlock_log']=run(['journalctl','-b','-k','--no-pager','--grep=gpu_unlock|silver_moon'])
+s['module']={'loaded':pathlib.Path('/sys/module/gpu_unlock').exists(),'result':read('/sys/module/gpu_unlock/parameters/transaction_result'),'handoff_safe':read('/sys/module/gpu_unlock/parameters/handoff_safe')}
+s['thunderbolt']=[{'path':str(p),'uuid':read(p/'unique_id'),'authorized':read(p/'authorized'),'security':read(p/'security')} for p in pathlib.Path('/sys/bus/thunderbolt/devices').glob('*')]
+s['pci']=[{'bdf':p.name,**{k:read(p/k) for k in ['vendor','device','subsystem_vendor','subsystem_device','revision']},'driver':(p/'driver').resolve().name if (p/'driver').exists() else None} for p in pathlib.Path('/sys/bus/pci/devices').glob('*') if read(p/'vendor')=='0x10de']
+probe=root/'references/gpu-unlock-ada/tools/read_sm_rates.py'
+if probe.exists() and s['gpu'].get('returncode')==0:
+ lines=s['gpu']['stdout'].strip().splitlines()
+ if len(lines)==2:
+  uuid=lines[1].split(',')[0].strip();s['sm_rates']=run([sys.executable,str(probe),'--expect-uuid',uuid])
+  if s['sm_rates'].get('returncode')==0:
+   try:
+    rates=json.loads(s['sm_rates']['stdout'])['rates'];values=[rates[k] for k in ['fmla32','imla2','imla4']]
+    s['rate_profile']='stock_half_rate' if values==[1,1,1] else 'full_rate_encoding' if values==[0,0,0] else 'unknown_encoding'
+   except (ValueError,KeyError):s['rate_profile']='unknown'
+if s['module']['result']=='0' and s['module']['handoff_safe']=='Y':s['unlock']='transaction_passed_per_kernel'
+elif s['module']['result'] not in (None,'-61'):
+ s['unlock']='rejected_or_failed';s['transaction_error']=s['module']['result']
+elif 'rate_profile' in s:
+ if s['rate_profile']=='stock_half_rate':s['unlock']='stock_rate_observed'
+if a.command=='verify':s['compute']=run([sys.executable,str(root/'scripts/smoke.py')],60)
+# Independent persistent record per boot; snapshots are atomic and collision-safe.
+s['completed_at']=datetime.datetime.now(datetime.timezone.utc).isoformat()
+out=root/'logs/status.json'
+def atomic(path):
+ with tempfile.NamedTemporaryFile(mode='w',dir=path.parent,delete=False) as f:json.dump(s,f,indent=2);tmp=f.name
+ os.replace(tmp,path)
+atomic(out)
+if a.command=='verify':
+ bootdir=root/'logs/boots'/str(s['boot_id']);bootdir.mkdir(parents=True,exist_ok=True)
+ for name in ['board_prom','board_prom_repeat']:
+  snapshot=pathlib.Path('/sys/module/gpu_unlock')/name
+  if snapshot.exists():
+   try:(bootdir/(name+'.bin')).write_bytes(snapshot.read_bytes())
+   except OSError as e:s['snapshot_error']=str(e)
+ atomic(bootdir/('verify-'+datetime.datetime.now(datetime.timezone.utc).strftime('%H%M%S')+'.json'))
+print(json.dumps(s,indent=2))
+if a.command=='verify' and s['compute'].get('returncode')==0 and s['module']['result']=='0':
+ # Runs independently under the installed service after an actual successful transaction.
+ result=run([sys.executable,str(root/'scripts/benchmark.py'),'--output',str(bootdir/'benchmark.json')],120)
+ atomic_result=bootdir/'benchmark-run.json';atomic_result.write_text(json.dumps(result,indent=2))
+ if result.get('returncode')==0:
+  bp=bootdir/'benchmark.json';b=json.loads(bp.read_text());b['state']=s['unlock'];b['boot_id']=s['boot_id'];bp.write_text(json.dumps(b,indent=2))
+if a.command=='verify'  and s['compute'].get('returncode')!=0:sys.exit(1)

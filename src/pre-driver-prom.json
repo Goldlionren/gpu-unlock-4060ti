@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "reviewed": true,
+  "boot_id": "5de2cb11-35c6-4a28-9046-e6185d9eca6b",
+  "vendor": "0x10de",
+  "device": "0x2803",
+  "subsystem_vendor": "0x1462",
+  "subsystem_device": "0x5174",
+  "vbios": "95.06.34.00.F3",
+  "original_path": "logs/board-capture/prom.bin",
+  "original_sha256": "2abeed7805fd3003b614c83e78815e921cfb135b253355469ba67e456013a942",
+  "candidate_path": "logs/boots/5de2cb11-35c6-4a28-9046-e6185d9eca6b/board_prom.bin",
+  "repeat_path": "logs/boots/5de2cb11-35c6-4a28-9046-e6185d9eca6b/board_prom_repeat.bin",
+  "prom_sha256": "c74f5e73f6d9d71f8b9a6942c7f8559a1c2f9a10e9bbacfb49e6ac93911579f2",
+  "rom_chain_end": 631296,
+  "rom_chain_sha256": "387bc9ae39eb78f7d61e89299eeb2c57624389bd1b89973ada5692e03ad8d126",
+  "rom_images": [
+    {
+      "offset": 0,
+      "size": 64512,
+      "type": 0,
+      "last": false
+    },
+    {
+      "offset": 64512,
+      "size": 86016,
+      "type": 3,
+      "last": false
+    },
+    {
+      "offset": 150528,
+      "size": 24576,
+      "type": 224,
+      "last": false
+    },
+    {
+      "offset": 175104,
+      "size": 456192,
+      "type": 224,
+      "last": true
+    }
+  ],
+  "fwsec": {
+    "parse_result": 0,
+    "image_off": 285512,
+    "image_size": 66816,
+    "imem_pa": 0,
+    "imem_size": 63232,
+    "imem_va": 0,
+    "dmem_pa": 0,
+    "data_off": 63232,
+    "dmem_size": 3456,
+    "pkc_off": 2852,
+    "interface_off": 28,
+    "ucode_id": 9,
+    "engine_mask": 1024,
+    "sig_count": 2,
+    "sig_versions": 3,
+    "sig_off": 284744,
+    "sig_bytes": 768
+  },
+  "read_source": "BAR0 NV_PROM_DATA +0x300000, full 1 MiB, memcpy_fromio, driver unbound, WPR2=0",
+  "review_basis": "Two identical pre-driver reads; independent header walk plus upstream FWSEC parser; every byte of complete header-delimited firmware chain equals original trusted capture. Tail is separately pinned, not excluded. Physical flash/shadow transition cause not proven.",
+  "cold_boot_verified": false
+}

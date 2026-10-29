@@ -1,0 +1,16 @@
+[Unit]
+Description=Silver Moon GPU post-boot verification (observational)
+After=network.target ssh.service
+
+[Service]
+Type=oneshot
+User=james
+WorkingDirectory=/home/james/projects/gpu-unlock-4060ti-linux
+ExecStart=/mnt/data_nvme/yinyue-comfy/conda-env/bin/python /home/james/projects/gpu-unlock-4060ti-linux/scripts/gpu-unlock verify
+TimeoutStartSec=120
+NoNewPrivileges=true
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

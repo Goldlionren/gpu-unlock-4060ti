@@ -1,0 +1,35 @@
+{
+  "release": "silver-moon-1-2026-10-29",
+  "status": "owner-frozen after one successful cold boot and one successful warm reboot",
+  "live_disable_restore_tested": false,
+  "secure_boot": "disabled",
+  "files": {
+    "src/kernel/Kbuild": "6ba06e330caec49f2567ff8875467c433e31adf3455085bcd01e0f24dce602e6",
+    "src/kernel/Makefile": "52d7675e5ced84ad17110b82e20afe89937cfb9c17de2cc3049478afe8946415",
+    "src/kernel/aperture_compat.h": "bfe14a3242d43c4115a6540c86b0424ba1d7f0b2750ef535556074d5de16f142",
+    "src/kernel/arch_610.h": "96272fde25bc23a74ed113a2fe1b6a3958ab91223ea0293cc2b0d88a39f7c2a5",
+    "src/kernel/board_guard.h": "b324751f29722996ab8250b8d86854c71646eac4879414e7c9131432d02b58cd",
+    "src/kernel/diagnostic.h": "fce58df506620383e26f2523eeee354f5b73a8b48e385829b4900a924a77f521",
+    "src/kernel/dkms.conf": "c2f2dca436798a0ec7d2a94a65a7eca4b2b25349a1a333f1e84a4b228b37d781",
+    "src/kernel/firmware_pins_610.h": "82125d437e7c866e2583c4a93d77679d2ea72be3151f444afa16fd0342a221c8",
+    "src/kernel/gfw_eval.c": "5a36666290df66edc703611086a36adb148cdb953babf4529d114c9ef098e1b6",
+    "src/kernel/gfw_eval.h": "530ef704290d566bd4300a2036c07808d56214a814925349e0a1db926ede35ad",
+    "src/kernel/layout_610.c": "bde52cb4c22a16bb345fef9caaa1c6f15c19c674d6985fde98e9d4c518aca375",
+    "src/kernel/layout_610.h": "afe45505f455f7af90a9d1920b416301bfb7e4ff1778f4f7e10186084618bb5e",
+    "src/kernel/main.c": "958c973660d4753fbd7e945507c6b33492a356a084ca9e451dd18b58692cc72c",
+    "src/kernel/prep_610.c": "35e1c844f6fa40c387a1cda9ddfc29f67f256748df28d0a718d920ba4a8f61fa",
+    "src/kernel/prep_610.h": "47a7aa339b12fc67b99047b5c1666cd66bcba1bf7621cb5c0b9df9094cda2fa4",
+    "src/kernel/unlock_610.c": "45083f6cf35e5c6436fb78bc29298dbd2293071483e9483fd6c0c9d311e5ef0c",
+    "src/kernel/unlock_610.h": "a734c6062aebbdcb331b61c2429764eb55b2350b0da2b4845669e966b0ee0370",
+    "src/kernel/vbios_610.c": "602a488ea200bbee67e90c600fda89cb6092d17709b314dbdf75b215f4a45253",
+    "src/kernel/vbios_610.h": "17990fa3a2464dbc1446ef5f349fe1486b39d9edf859ab1d8896857f65b3b7e0",
+    "integration/before-nvidia": "1fbf8eb650bc84a5bdd6d1f337add6ba1d70dae322e4e2c666f809870c7e6f19",
+    "integration/gpu-unlock-verify.service": "41995652e846a53d547fec2185b4ff4c8f82ea11c9854aaeb06c9b6640b78b25",
+    "integration/initramfs-hook": "eb39d02c8c9e70dd0cf73dd25fdfc75ff2c13ba3fad82f612aa249deece8a021"
+  },
+  "installed_artifacts": {
+    "/lib/modules/7.0.0-38-generic/updates/dkms/gpu_unlock.ko.zst": "26e90c487ba7f5cccfb91a66c382cc0866f31657f852acefca3027e03a41099b",
+    "/boot/initrd.img-7.0.0-38-generic": "524ac81d71c7d8f79556b2b93b77bca942c0a52b48b327aabd06cde72cd0a6bb",
+    "/etc/gpu-unlock-sm1/profile.conf": "309eade2876fe345f7295dfda5610a82143534436f1e3894239cd7d5c10ab0ed"
+  }
+}

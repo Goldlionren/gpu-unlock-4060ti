@@ -1,0 +1,57 @@
+#!/bin/sh
+# Runs synchronously before modprobe registers the NVIDIA PCI driver.
+# Never unloads a driver, resets a device itself, or authorizes Thunderbolt.
+set -u
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+base=/etc/gpu-unlock-sm1
+state=/run/gpu-unlock-sm1
+log() { printf '<6>gpu_unlock_coordinator: %s\n' "$*" > /dev/kmsg 2>/dev/null || :; }
+stock() { exec /sbin/modprobe --ignore-install nvidia "$@"; }
+[ -f "$base/enabled" ] || stock "$@"
+[ -r "$base/profile.conf" ] || stock "$@"
+# Root-owned installer-generated constants, never an arbitrary user profile.
+. "$base/profile.conf"
+mkdir -p "$state"
+exec 9>"$state/lock"
+# If another transaction is still running, do not race NVIDIA against it.
+flock -w 30 9 || { log 'coordinator busy; NVIDIA load deferred'; exit 1; }
+if [ -f /sys/module/gpu_unlock/parameters/handoff_safe ] &&
+   [ "$(cat /sys/module/gpu_unlock/parameters/handoff_safe)" != Y ]; then
+ log 'previous unsafe handoff; withholding NVIDIA'; exit 1
+fi
+if [ -d /sys/module/nvidia ] || [ -e "$state/attempted" ]; then stock "$@"; fi
+# Already authorized by existing firmware/boltd policy. No new authorization.
+tb_ok=0
+for t in /sys/bus/thunderbolt/devices/*; do
+ [ -r "$t/unique_id" ] || continue
+ [ "$(cat "$t/unique_id")" = "$TB_UUID" ] || continue
+ [ "$(cat "$t/authorized" 2>/dev/null)" = 1 ] || continue
+ tb_ok=$((tb_ok+1))
+done
+[ "$tb_ok" = 1 ] || { log 'expected enclosure unavailable/unauthorized; stock'; stock "$@"; }
+[ "$(cat /sys/bus/thunderbolt/devices/domain0/iommu_dma_protection 2>/dev/null)" = 1 ] || { log 'IOMMU protection unavailable; stock'; stock "$@"; }
+count=0; target=
+for p in /sys/bus/pci/devices/*; do
+ [ "$(cat "$p/vendor")" = 0x10de ] || continue
+ [ "$(cat "$p/device")" = 0x2803 ] || continue
+ [ "$(cat "$p/subsystem_vendor")" = 0x1462 ] || continue
+ [ "$(cat "$p/subsystem_device")" = 0x5174 ] || continue
+ [ "$(cat "$p/revision")" = 0xa1 ] || continue
+ count=$((count+1)); target=$p
+done
+[ "$count" = 1 ] || { log 'missing/ambiguous board; stock'; stock "$@"; }
+case "$(readlink -f "$target")" in /sys/devices/pci0000:00/0000:00:07.0/*) ;; *) log 'wrong Thunderbolt PCI root port; stock'; stock "$@";; esac
+[ ! -e "$target/driver" ] || { log 'board already bound; stock'; stock "$@"; }
+[ "$(cat "$target/boot_vga")" = 0 ] || { log 'firmware display ownership; stock'; stock "$@"; }
+# Mark before entering the kernel. Neither failure nor repeated modprobe retries.
+printf '%s\n' "${target##*/}" > "$state/attempted"
+log "one attempt target=${target##*/}"
+/sbin/modprobe gpu_unlock "targets=${target##*/}" ad106_experimental=1 "board_prom_sha256=$PROM_SHA256"
+if [ -f /sys/module/gpu_unlock/parameters/handoff_safe ] &&
+   [ "$(cat /sys/module/gpu_unlock/parameters/handoff_safe)" != Y ]; then
+ log 'transaction containment not established; withholding NVIDIA, no retry'
+ exit 1
+fi
+# Upstream returns 0 even on device failure. Preserve kernel results for verifier.
+log 'transaction returned; proceeding to stock NVIDIA driver'
+stock "$@"

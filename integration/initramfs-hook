@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+PREREQ=""
+prereqs() { echo "$PREREQ"; }
+case "$1" in prereqs) prereqs; exit 0;; esac
+. /usr/share/initramfs-tools/hook-functions
+# Include the helper even when disabled so copied modprobe rules never dangle.
+copy_exec /usr/lib/gpu-unlock-sm1/before-nvidia
+copy_exec /usr/bin/flock
+copy_exec /usr/bin/readlink
+mkdir -p "$DESTDIR/etc/gpu-unlock-sm1"
+cp /etc/gpu-unlock-sm1/profile.conf "$DESTDIR/etc/gpu-unlock-sm1/"
+if [ -f /etc/gpu-unlock-sm1/enabled ]; then
+ cp /etc/gpu-unlock-sm1/enabled "$DESTDIR/etc/gpu-unlock-sm1/"
+ manual_add_modules gpu_unlock
+fi

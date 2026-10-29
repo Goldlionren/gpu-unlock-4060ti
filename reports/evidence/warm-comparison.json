@@ -1,0 +1,204 @@
+{
+  "compatibility_checks": {
+    "torch": true,
+    "cuda": true,
+    "source_sha256": true,
+    "seed": true,
+    "precision": true,
+    "device": true,
+    "hardware_stack_power": true
+  },
+  "comparable_metadata": true,
+  "rows": [
+    {
+      "n": 2048,
+      "mode": "fp32",
+      "stock_rate": 11.650844267819254,
+      "candidate_rate": 11.01590051999782,
+      "ratio": 0.9455023401544204,
+      "stock_relative_l2": 3.1197855494329333e-07,
+      "candidate_relative_l2": 3.1197855494329333e-07,
+      "stock_numeric_pass": true,
+      "candidate_numeric_pass": true
+    },
+    {
+      "n": 2048,
+      "mode": "fp16",
+      "stock_rate": 41.120628196449395,
+      "candidate_rate": 72.31558440501686,
+      "ratio": 1.7586206139540697,
+      "stock_relative_l2": 0.00020666196286166802,
+      "candidate_relative_l2": 0.00020666196286166802,
+      "stock_numeric_pass": true,
+      "candidate_numeric_pass": true
+    },
+    {
+      "n": 2048,
+      "mode": "bf16",
+      "stock_rate": 41.22165950632064,
+      "candidate_rate": 73.90844156658146,
+      "ratio": 1.792951629112575,
+      "stock_relative_l2": 0.0016414519383985374,
+      "candidate_relative_l2": 0.0016414519383985374,
+      "stock_numeric_pass": true,
+      "candidate_numeric_pass": true
+    },
+    {
+      "n": 2048,
+      "mode": "fp8_e4m3",
+      "stock_rate": 76.95970605444091,
+      "candidate_rate": 111.10739059073616,
+      "ratio": 1.4437086143772344,
+      "stock_relative_l2": 0.00010261259841668591,
+      "candidate_relative_l2": 0.00010261259841668591,
+      "stock_numeric_pass": false,
+      "candidate_numeric_pass": false
+    },
+    {
+      "n": 2048,
+      "mode": "fp8_e5m2",
+      "unavailable": {
+        "stock": "Multiplication of two Float8_e5m2 matrices is not supported",
+        "candidate": "Multiplication of two Float8_e5m2 matrices is not supported"
+      }
+    },
+    {
+      "n": 2048,
+      "mode": "int8",
+      "stock_rate": 133.152508993528,
+      "candidate_rate": 118.1494047761482,
+      "ratio": 0.8873239090214288,
+      "stock_relative_l2": 0.0,
+      "candidate_relative_l2": 0.0,
+      "stock_numeric_pass": true,
+      "candidate_numeric_pass": true
+    },
+    {
+      "n": 4096,
+      "mode": "fp32",
+      "stock_rate": 12.889438524739289,
+      "candidate_rate": 12.190529834243682,
+      "ratio": 0.9457766380471764,
+      "stock_relative_l2": 1.1486078536369835e-06,
+      "candidate_relative_l2": 1.1486078536369835e-06,
+      "stock_numeric_pass": true,
+      "candidate_numeric_pass": true
+    },
+    {
+      "n": 4096,
+      "mode": "fp16",
+      "stock_rate": 43.46429018836915,
+      "candidate_rate": 73.46345499320095,
+      "ratio": 1.6902025703127541,
+      "stock_relative_l2": 0.00020699365092585598,
+      "candidate_relative_l2": 0.00020699365092585598,
+      "stock_numeric_pass": true,
+      "candidate_numeric_pass": true
+    },
+    {
+      "n": 4096,
+      "mode": "bf16",
+      "stock_rate": 44.19418000862811,
+      "candidate_rate": 73.82713353054227,
+      "ratio": 1.6705171023906058,
+      "stock_relative_l2": 0.0016597076065329465,
+      "candidate_relative_l2": 0.0016597076065329465,
+      "stock_numeric_pass": true,
+      "candidate_numeric_pass": true
+    },
+    {
+      "n": 4096,
+      "mode": "fp8_e4m3",
+      "stock_rate": 87.8963518324814,
+      "candidate_rate": 118.04549070406253,
+      "ratio": 1.3430078523513846,
+      "stock_relative_l2": 0.00010300311933549249,
+      "candidate_relative_l2": 0.00010300311933549249,
+      "stock_numeric_pass": false,
+      "candidate_numeric_pass": false
+    },
+    {
+      "n": 4096,
+      "mode": "fp8_e5m2",
+      "unavailable": {
+        "stock": "Multiplication of two Float8_e5m2 matrices is not supported",
+        "candidate": "Multiplication of two Float8_e5m2 matrices is not supported"
+      }
+    },
+    {
+      "n": 4096,
+      "mode": "int8",
+      "stock_rate": 157.34786845407368,
+      "candidate_rate": 152.52014426330064,
+      "ratio": 0.9693181468665262,
+      "stock_relative_l2": 0.0,
+      "candidate_relative_l2": 0.0,
+      "stock_numeric_pass": true,
+      "candidate_numeric_pass": true
+    },
+    {
+      "n": 8192,
+      "mode": "fp32",
+      "stock_rate": 11.672121971094244,
+      "candidate_rate": 11.815590941590717,
+      "ratio": 1.0122915928099252,
+      "stock_relative_l2": 1.6238159260365147e-06,
+      "candidate_relative_l2": 1.6238159260365147e-06,
+      "stock_numeric_pass": true,
+      "candidate_numeric_pass": true
+    },
+    {
+      "n": 8192,
+      "mode": "fp16",
+      "stock_rate": 44.99043993838922,
+      "candidate_rate": 76.74518004172926,
+      "ratio": 1.7058108377429868,
+      "stock_relative_l2": 0.0002077342937998312,
+      "candidate_relative_l2": 0.0002077342937998312,
+      "stock_numeric_pass": true,
+      "candidate_numeric_pass": true
+    },
+    {
+      "n": 8192,
+      "mode": "bf16",
+      "stock_rate": 44.94900590072272,
+      "candidate_rate": 77.00938406913008,
+      "ratio": 1.713261117258477,
+      "stock_relative_l2": 0.0016595883605968005,
+      "candidate_relative_l2": 0.0016595883605968005,
+      "stock_numeric_pass": true,
+      "candidate_numeric_pass": true
+    },
+    {
+      "n": 8192,
+      "mode": "fp8_e4m3",
+      "stock_rate": 87.2464283554644,
+      "candidate_rate": 147.49200838968724,
+      "ratio": 1.6905220210134775,
+      "stock_relative_l2": 0.00010252766139512151,
+      "candidate_relative_l2": 0.00010252766139512151,
+      "stock_numeric_pass": false,
+      "candidate_numeric_pass": false
+    },
+    {
+      "n": 8192,
+      "mode": "fp8_e5m2",
+      "unavailable": {
+        "stock": "Multiplication of two Float8_e5m2 matrices is not supported",
+        "candidate": "Multiplication of two Float8_e5m2 matrices is not supported"
+      }
+    },
+    {
+      "n": 8192,
+      "mode": "int8",
+      "stock_rate": 171.38736286785618,
+      "candidate_rate": 172.4609443390922,
+      "ratio": 1.0062640643584895,
+      "stock_relative_l2": 0.0,
+      "candidate_relative_l2": 0.0,
+      "stock_numeric_pass": true,
+      "candidate_numeric_pass": true
+    }
+  ],
+  "caution": "Clocks, power samples, background workloads, dispatch and repeated-run variation still require assessment; ratio alone is not causal proof."
+}

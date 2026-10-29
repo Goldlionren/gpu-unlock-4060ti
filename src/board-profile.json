@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "reviewed": false,
+  "vendor": "0x10de",
+  "device": "0x2803",
+  "subsystem_vendor": "0x1462",
+  "subsystem_device": "0x5174",
+  "revision": "0xa1",
+  "vbios": "95.06.34.00.F3",
+  "prom_sha256": null,
+  "approved_selector_states": [],
+  "note": "Discovery profile only. No hardware transaction permitted. BDF is deliberately absent."
+}
